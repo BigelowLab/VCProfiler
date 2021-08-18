@@ -1,14 +1,14 @@
 databases:
     vog:
-        blast: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog_proteins_nr.fasta
-        hmm: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/hmm/vog_hmm
-        taxonomy: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog.lca.tsv
-        function: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog.annotations.tsv
+        blast: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog201/vog_proteins_nr.fasta
+        hmm: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog201/hmm/vog_hmm
+        taxonomy: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog201/vog.lca.tsv
+        function: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog201/vog.annotations.tsv
     imgvr:
         blast:
-            prot: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/IMGVR_mVCs_proteins.faa
-            nucl: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/IMGVR_mVCs_nucleotides.fna
-        info: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/IMGVR_Sequence_information.tsv
+            prot: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/2018-01-01/IMGVR_mVCs_proteins.faa
+            nucl: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/2018-01-01/IMGVR_mVCs_nucleotides.fna
+        info: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/IMGVR/2018-01-01/IMGVR_Sequence_information.tsv
     ssdna_virs: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/ssdna/ssDNA_viruses.fna
     djr:
         blast: /mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/djr/djr_proteins.fasta

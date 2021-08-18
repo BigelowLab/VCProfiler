@@ -8,6 +8,16 @@ from scgc.utils import file_transaction
 
 
 def run_hmmscan(infasta, db, outtbl, threads=1, overwrite=False):
+    '''
+    Args: 
+    infasta: input fasta sequences as aa
+    db: hmm database to compare against
+    threads: how many threads to use
+    overwrite: overwrite output file if it already exists
+    
+    Returns:
+    path to the outtbl (string)
+    '''
     if not overwrite and op.exists(outtbl):
         return outtbl
     with file_transaction(outtbl) as tx_out_file:
@@ -16,6 +26,12 @@ def run_hmmscan(infasta, db, outtbl, threads=1, overwrite=False):
     return outtbl
 
 def import_hmmscan_out(tbl):
+    '''
+    args: 
+        tbl: hmmscan output
+    returns:
+        df: pandas dataframe of hmmscan table
+    '''
     names = ['sseqid', 'accession', 'qseqid', 'accession', 'evalue', 'score', 'bias', 'd-evalue', 'd-score', 'd-bias', 'exp', 'reg', 'clu', 'ov', 'env', 'dom', 'rep', 'inc', 'description of target']
     df = pd.DataFrame(columns = names)
     with open(tbl) as ih:
@@ -25,12 +41,28 @@ def import_hmmscan_out(tbl):
     return df
 
 def hmmscan_besthits(df, max_eval=0.001):
+    '''
+    Keeps only best hits from a pandas dataframe with the columns 'qseqid' and 'evalue'
+    Args:
+        df: pandas dataframe of hmmscan output (created using the function import_hmmscan_out), it really only needs two columns with the headers 'qseqid' and 'evalue' to work
+    Returns:
+        pandas dataframe with only the hit with the lowest evalue per qseqid present
+    '''
     df['evalue'] = [float(i) for i in df['evalue']]
     df = df[df['evalue'] < max_eval]
     return df.sort_values(by=['qseqid','evalue'], ascending=True).drop_duplicates(subset='qseqid', keep='first')
 
 
 def process_hmmscan(tbl, max_eval=0.001, best_only=True):
+    '''
+    Processes the hmmscan output table
+    Args:
+        tbl (path): hmmscan output
+        max_eval (numeric): maximum evalue to maintain in table
+        best_only (bool): keep only the best hits if True
+    Returns:
+        pandas dataframe of output
+    '''
     names = ['sseqid', 'accession', 'qseqid', 'accession', 'evalue', 'score', 'bias', 'd-evalue', 'd-score', 'd-bias', 'exp', 'reg', 'clu', 'ov', 'env', 'dom', 'rep', 'inc', 'description of target']
     df = pd.DataFrame(columns = names)
     with open(tbl) as ih:
@@ -103,6 +135,8 @@ def vog_hmm(infasta, outdir, prot=False, threads=1, max_eval = 0.001,
             vog_lca = "/mnt/scgc/simon/simonsproject/jb_vs_test/viral_dbs/VOG/vog.lca.tsv", overwrite=False):
     
     ''' uses VOGs and tables from: http://vogdb.org/download '''
+    print(vog_annotations)
+    print(db)
     
     outdir = safe_makedir(outdir)
     name = op.basename(infasta).split(".")[0]
